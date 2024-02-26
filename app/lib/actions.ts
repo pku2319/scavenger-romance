@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
+import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -30,6 +32,9 @@ export async function createTraveler(formData: FormData) {
       message: 'Database Error: Failed to Create Traveler.',
     };
   }
+
+  cookies().set('traveler', name);
+  revalidatePath('/');
 }
 
 // export type State = {
