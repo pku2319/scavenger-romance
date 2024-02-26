@@ -19,7 +19,7 @@ export default async function Home() {
           </p>
       </header>
       {
-        travelerData ? <Board /> : <CreateTravelerForm />
+        travelerData ? <Board gameState={travelerData.board} /> : <CreateTravelerForm />
       }
     </main>
   );

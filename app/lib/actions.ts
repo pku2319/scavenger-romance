@@ -23,11 +23,13 @@ export async function createTraveler(formData: FormData) {
     name: formData.get('name'),
     game: formData.get('game'),
   });
-  // Test it out:
+
+  const boardState = new Array(9).fill(0);
+
   try {
     result = await sql`
-    INSERT INTO travelers (name, game)
-    VALUES (${name}, ${game})
+    INSERT INTO travelers (name, game, board)
+    VALUES (${name}, ${game}, ${JSON.stringify(boardState)})
     RETURNING id
   `;
   } catch (e) {

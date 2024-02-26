@@ -11,7 +11,8 @@ export async function fetchTravelerById(id: string) {
     const data = await sql<Traveler>`
       SELECT
         id,
-        name
+        name,
+        board
       FROM travelers
       WHERE id = ${id}
     `;

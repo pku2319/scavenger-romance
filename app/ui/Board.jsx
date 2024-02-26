@@ -1,18 +1,11 @@
 import Image from 'next/image'
-// import { useState } from 'react'
 
-export default function Board({ }) {
-  // const [gameState, setGameState] = useState(new Array(9).fill(0));
-  // show pieces according to the boardState
-  // need a puzzle picture
-  const gameState = [0, 1, 0, 1, 0, 0, 0, 0, 0];
-
-
+export default function Board({ gameState }) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="flex flex-col items-center">
         <p className='mb-2 block text-base font-medium'>Your Board</p>
-        <div className="relative">
+        <div className="relative border-2 border-white">
           <Image
             src="/scavenger_picture.jpeg"
             alt="Puzzle Board picture"
