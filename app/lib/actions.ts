@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { sql } from '@vercel/postgres';
+import { QueryResult, QueryResultRow, sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
@@ -17,15 +17,18 @@ const FormSchema = z.object({
 
 const CreateTraveler = FormSchema.omit({ id: true });
 export async function createTraveler(formData: FormData) {
+  let result: QueryResult<QueryResultRow>;
+
   const { name, game } = CreateTraveler.parse({
     name: formData.get('name'),
     game: formData.get('game'),
   });
   // Test it out:
   try {
-    await sql`
+    result = await sql`
     INSERT INTO travelers (name, game)
     VALUES (${name}, ${game})
+    RETURNING id
   `;
   } catch (e) {
     return {
@@ -33,7 +36,7 @@ export async function createTraveler(formData: FormData) {
     };
   }
 
-  cookies().set('traveler', name);
+  cookies().set('traveler', result.rows[0].id);
   revalidatePath('/');
 }
 
