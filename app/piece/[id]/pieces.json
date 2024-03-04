@@ -1,0 +1,102 @@
+{
+  "1": {
+    "type": "interaction w/ answer",
+    "prompts": [
+      {
+        "prompt": "Find someone who has visited a country you'd love to visit.",
+        "shortName": "country",
+        "question": "What was the country?"
+      }
+    ]
+  },
+  "2": {
+    "type": "action w/ answer",
+    "prompts": [
+      {
+        "prompt": "Eat a piece of candy",
+        "shortName": "candy",
+        "question": "What candy did you eat?"
+      }
+    ]
+  },
+  "3": {
+    "type": "interaction w/ answer",
+    "prompts": [
+      {
+        "prompt": "Challenge someone to rock paper scissors",
+        "shortName": "rock paper",
+        "question": "Who won?"
+      }
+    ]
+  },
+  "4": {
+    "type": "interaction w/ answer",
+    "prompts": [
+      {
+        "prompt": "Ask for someone's favorite book",
+        "shortName": "book",
+        "question": "What was the book?"
+      }
+    ]
+  },
+  "5": {
+    "type": "choice action",
+    "prompts": [
+      {
+        "prompt": "Create a secret handshake with someone",
+        "shortName": "handshake",
+        "question": "NONE"
+      },
+      {
+        "prompt": "Create a silly dance with someone",
+        "shortName": "dance",
+        "question": "NONE"
+      }
+    ]
+  },
+  "6": {
+    "type": "interaction w/ answer",
+    "prompts": [
+      {
+        "prompt": "Ask someone to share a regret they've had.",
+        "shortName": "regret",
+        "question": "Enter a phrase about the regret."
+      }
+    ]
+  },
+  "7": {
+    "type": "choice action",
+    "prompts": [
+      {
+        "prompt": "Create a drink/food recipe based on someone's personality",
+        "shortName": "recipe",
+        "question": "Name this recipe"
+      },
+      {
+        "prompt": "Draw someone's favorite animal.",
+        "shortName": "animal",
+        "question": "What was the animal?"
+      }
+    ]
+  },
+  "8": {
+    "type": "action w/ answer",
+    "prompts": [
+      {
+        "prompt": "Drink something (water counts)",
+        "shortName": "drink",
+        "question": "What did you drink?"
+      }
+    ]
+  },
+  "9": {
+    "type": "action w/ answer",
+    "prompts": [
+      {
+        "prompt": "Tell someone about a personal tradition you have (e.g. birthday, xmas, etc)",
+        "shortName": "tradition",
+        "question": "NONE"
+      }
+    ]
+  }
+}

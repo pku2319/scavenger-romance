@@ -4,3 +4,14 @@ export type Traveler = {
   game: string;
   board: Array<number>;
 };
+
+export interface Pieces {
+  [key: string]: {
+    type: string;
+    prompts: {
+      prompt: string;
+      shortName: string;
+      question: string;
+    }[];
+  };
+}
