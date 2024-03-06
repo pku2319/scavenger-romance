@@ -178,7 +178,10 @@ const config: Config = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.ts?$': 'ts-jest',
+    '^.+\\.ts?$': ['ts-jest', {
+      babel: true,
+      tsConfig: 'tsconfig.test.json',
+    }],
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
