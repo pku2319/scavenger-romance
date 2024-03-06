@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import Board from '@/app/ui/Board'
+import Board from '@/app/ui/components/Board'
 
 
 describe('Board', () => {

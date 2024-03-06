@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 
 import { fetchTravelerById } from '@/app/lib/data';
 import CreateTravelerForm from '@/app/ui/form/CreateTravelerForm';
-import Board from '@/app/ui/Board';
+import Board from '@/app/ui/components/Board';
 
 export default async function Home() {
   const traveler = cookies().get('traveler');
