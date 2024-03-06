@@ -1,6 +1,6 @@
 {
   "1": {
-    "type": "interaction w/ answer",
+    "type": "interaction answer",
     "prompts": [
       {
         "prompt": "Find someone who has visited a country you'd love to visit.",
@@ -10,7 +10,7 @@
     ]
   },
   "2": {
-    "type": "action w/ answer",
+    "type": "individual answer",
     "prompts": [
       {
         "prompt": "Eat a piece of candy",
@@ -20,7 +20,7 @@
     ]
   },
   "3": {
-    "type": "interaction w/ answer",
+    "type": "interaction answer",
     "prompts": [
       {
         "prompt": "Challenge someone to rock paper scissors",
@@ -30,7 +30,7 @@
     ]
   },
   "4": {
-    "type": "interaction w/ answer",
+    "type": "interaction answer",
     "prompts": [
       {
         "prompt": "Ask for someone's favorite book",
@@ -40,7 +40,7 @@
     ]
   },
   "5": {
-    "type": "choice action",
+    "type": "choice interaction answer",
     "prompts": [
       {
         "prompt": "Create a secret handshake with someone",
@@ -55,7 +55,7 @@
     ]
   },
   "6": {
-    "type": "interaction w/ answer",
+    "type": "interaction answer",
     "prompts": [
       {
         "prompt": "Ask someone to share a regret they've had.",
@@ -65,7 +65,7 @@
     ]
   },
   "7": {
-    "type": "choice action",
+    "type": "choice interaction",
     "prompts": [
       {
         "prompt": "Create a drink/food recipe based on someone's personality",
@@ -80,7 +80,7 @@
     ]
   },
   "8": {
-    "type": "action w/ answer",
+    "type": "individual answer",
     "prompts": [
       {
         "prompt": "Drink something (water counts)",
@@ -90,7 +90,7 @@
     ]
   },
   "9": {
-    "type": "action w/ answer",
+    "type": "interaction",
     "prompts": [
       {
         "prompt": "Tell someone about a personal tradition you have (e.g. birthday, xmas, etc)",
