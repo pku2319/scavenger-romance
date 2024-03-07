@@ -1,8 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Piece(
-  { status, row, col }:
-    { status: number, row: number, col: number }
+  { status, pieceId, row, col }:
+    { status: number, pieceId: number, row: number, col: number }
 ) {
   return (
     <div
@@ -13,7 +14,11 @@ export default function Piece(
       {
         status === 1 && (
           <div className="w-[140px] h-[140px] bg-black flex items-center justify-center">
-            Found
+            <Link
+              className="text-white underline hover:text-blue-500"
+              href={`/piece/${pieceId}`}>
+              Found
+            </Link>
           </div>
         )
       }
