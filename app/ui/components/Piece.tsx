@@ -12,7 +12,7 @@ export default function Piece(
       }
       {
         status === 1 && (
-          <div className="w-[140px] h-[140px] bg-black">
+          <div className="w-[140px] h-[140px] bg-black flex items-center justify-center">
             Found
           </div>
         )
