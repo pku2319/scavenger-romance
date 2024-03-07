@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { updatePiece } from '@/app/lib/actions';
 import { STATUS_COMPLETED, STATUS_FOUND } from './statuses';

@@ -4,6 +4,8 @@ import { fetchPiecesByTravelerId, fetchTravelerById } from "@/app/lib/data";
 import { STATUS_FOUND } from "@/app/piece/[id]/statuses";
 
 import { Pieces } from "@/app/lib/definitions";
+import Link from "next/link";
+import Piece from "@/app/ui/components/Piece";
 const pieces: Pieces = (await import("@/app/lib/pieces.json")).default
 
 export default async function Pieces({ params }: { params: { partnerId: string } }) {
@@ -30,21 +32,33 @@ export default async function Pieces({ params }: { params: { partnerId: string }
             const gamePiece = pieces[piece.pieceid]
 
             if (gamePiece.type.match('choice')) {
-              return (
-                <div key={piece.id}>
-                  <p>{gamePiece.prompts[(travelerData?.name?.length || 0) % 2].shortName}</p>
-                </div>
-              )
+              return <PieceLink
+                key={piece.id}
+                pieceId={piece.pieceid}
+                partnerId={params.partnerId}
+                shortname={gamePiece.prompts[(travelerData?.name?.length || 0) % 2].shortName} />
             }
 
-            return (
-              <div key={piece.id}>
-                <p>{gamePiece.prompts[0].shortName}</p>
-              </div>
-            )
+            return <PieceLink
+              key={piece.id}
+              pieceId={piece.pieceid}
+              partnerId={params.partnerId}
+              shortname={gamePiece.prompts[0].shortName} />
           })
         }
       </div>
+    </div>
+  )
+}
+
+function PieceLink({ pieceId, partnerId, shortname }: { pieceId: number, partnerId: string, shortname: string }) {
+  return (
+    <div key={pieceId}>
+      <Link
+        href={`/piece/${pieceId}/partner/${partnerId}`}
+        className="mb-2 block text-base underline hover:text-blue-500">
+        <p>{shortname}</p>
+      </Link>
     </div>
   )
 }
