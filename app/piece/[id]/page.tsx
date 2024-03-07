@@ -2,13 +2,13 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-import { Pieces } from "@/app/lib/definitions";
 import { fetchTravelerById, fetchPiece } from '@/app/lib/data';
 import { updatePiece } from '@/app/lib/actions';
 import Status from './Status';
 import { STATUS_COMPLETED } from './statuses';
 
-const pieces: Pieces = (await import("./pieces.json")).default
+import { Pieces } from "@/app/lib/definitions";
+const pieces: Pieces = (await import("@/app/lib/pieces.json")).default
 
 export default async function Page({ params }: { params: { id: string } }) {
   const traveler = cookies().get('traveler');
