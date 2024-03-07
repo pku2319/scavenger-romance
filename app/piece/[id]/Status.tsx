@@ -1,18 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { updatePiece } from '@/app/lib/actions';
-import { STATUS_FOUND } from './statuses';
+import { STATUS_COMPLETED, STATUS_FOUND } from './statuses';
+import { Piece } from '@/app/lib/definitions';
 
-export default function Status({ travelerId, pieceId }: { travelerId: string, pieceId: string }) {
+export default function Status({ travelerId, piece }: { travelerId: string, piece: Piece | null }) {
   useEffect(() => {
-    if (travelerId.length > 0) {
-      updatePiece(travelerId, Number(pieceId), STATUS_FOUND, null, null);
+    if (travelerId.length > 0 && piece?.status !== STATUS_COMPLETED) {
+      updatePiece(travelerId, Number(piece?.pieceid), STATUS_FOUND, null, null);
     }
   }, [travelerId])
 
   return (
-    <div>Piece: #{pieceId}</div>
+    <div>Piece: #{piece?.pieceid}</div>
   )
 }

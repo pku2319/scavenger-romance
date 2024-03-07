@@ -49,3 +49,27 @@ export async function fetchPiecesByTravelerId(id: string) {
     throw new Error('Failed to fetch pieces.');
   }
 }
+
+export async function fetchPiece(pieceId: string, travelerId: string) {
+  noStore();
+
+  try {
+    const data = await sql<Piece>`
+      SELECT
+        id,
+        userId,
+        pieceId,
+        status,
+        partnerId,
+        answer
+      FROM pieces
+      WHERE userId = ${travelerId} AND pieceId = ${pieceId}
+    `;
+
+    const piece = data.rows[0];
+    return piece;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch piece.');
+  }
+}
