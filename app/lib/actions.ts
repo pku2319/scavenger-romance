@@ -24,17 +24,30 @@ export async function createTraveler(formData: FormData) {
     game: formData.get('game'),
   });
 
-  const boardState = new Array(9).fill(0);
+  const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   try {
     result = await sql`
     INSERT INTO travelers (name, game, board)
-    VALUES (${name}, ${game}, ${JSON.stringify(boardState)})
+    VALUES (${name}, ${game})
     RETURNING id
   `;
   } catch (e) {
     return {
       message: 'Database Error: Failed to Create Traveler.',
+    };
+  }
+
+  try {
+    pieceIds.map(async (id) => {
+      await sql`
+      INSERT INTO pieces (userId, pieceId, status, answer, parnerId)
+      VALUES (${result.rows[0].id}, ${id}, 0, null, null)
+      `;
+    })
+  } catch (e) {
+    return {
+      message: 'Database Error: Failed to Create Piece.',
     };
   }
 
