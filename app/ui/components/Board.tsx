@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import Piece from './Piece'
 import { Piece as PieceType } from '@/app/lib/definitions';
 
