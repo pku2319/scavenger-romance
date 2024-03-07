@@ -55,42 +55,15 @@ export async function createTraveler(formData: FormData) {
   revalidatePath('/');
 }
 
-// export type State = {
-//   errors?: {
-//     name?: string[];
-//     game?: string[];
-//   };
-//   message?: string | null;
-// };
-
-// export async function createTraveler(formData: FormData) {
-//   const validatedFields = CreateTraveler.safeParse({
-//     name: formData.get('name'),
-//     game: formData.get('game'),
-//   });
-
-//   console.log(validatedFields)
-
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//       message: 'Missing Fields. Failed to Create Invoice.',
-//     };
-//   }
-
-//   const { name, game } = validatedFields.data;
-
-//   try {
-//     await sql`
-//     INSERT INTO travelers (name, game)
-//     VALUES (${name}, ${game})
-//   `;
-//   } catch (e) {
-//     return {
-//       message: 'Database Error: Failed to Create Traveler.',
-//     };
-//   }
-
-//   // revalidatePath('/dashboard/invoices');
-//   // redirect('/dashboard/invoices');
-// }
+export async function updatePiece(
+  travelerId: string, pieceId: number, status: number, answer: string | null, partnerId: string | null) {
+  await sql`
+    UPDATE pieces
+    SET
+      status = ${status},
+      answer = ${answer},
+      partnerId = ${partnerId}
+    WHERE
+      pieceId = ${pieceId} AND userId = ${travelerId}
+  `;
+}
