@@ -11,7 +11,7 @@ export default async function MyQRCode() {
       <div className="mb-2 block text-base font-medium">
         {travelerData?.name}'s code
       </div>
-      <QRCode value={`http://localhost:3000/pieces/${traveler?.value}`} />
+      <QRCode value={`http://localhost:3000/partner/${traveler?.value}`} />
     </div>
   )
 }
