@@ -1,12 +1,13 @@
 import { cookies } from 'next/headers';
 
-import { fetchTravelerById } from '@/app/lib/data';
+import { fetchTravelerById, fetchPiecesByTravelerId } from '@/app/lib/data';
 import CreateTravelerForm from '@/app/ui/form/CreateTravelerForm';
 import Board from '@/app/ui/components/Board';
 
 export default async function Home() {
   const traveler = cookies().get('traveler');
   const travelerData = traveler ? await fetchTravelerById(traveler.value) : null;
+  const piecesData = traveler ? await fetchPiecesByTravelerId(traveler.value) : null;
 
   return (
     <div>
@@ -16,7 +17,7 @@ export default async function Home() {
           </p>
       </header>
       {
-        travelerData ? <Board gameState={travelerData.board} /> : <CreateTravelerForm />
+        travelerData ? <Board pieces={piecesData || []} /> : <CreateTravelerForm />
       }
     </div>
   );

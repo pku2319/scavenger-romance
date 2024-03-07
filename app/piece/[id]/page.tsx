@@ -36,9 +36,16 @@ export default async function Page({ params }: { params: { id: string } }) {
       }
       {
         piece.type.match('individual') && (
-          <button>
-            Claim Piece!
-          </button>
+          <form>
+            <input
+              className="h-4 p-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+              id="answer"
+              name="answer"
+              type="text" />
+            <button>
+              Claim Piece!
+            </button>
+          </form>
         )
       }
     </div>

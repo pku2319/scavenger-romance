@@ -3,6 +3,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 import {
   Traveler,
+  Piece,
 } from './definitions';
 export async function fetchTravelerById(id: string) {
   noStore();
@@ -11,8 +12,7 @@ export async function fetchTravelerById(id: string) {
     const data = await sql<Traveler>`
       SELECT
         id,
-        name,
-        board
+        name
       FROM travelers
       WHERE id = ${id}
     `;
@@ -22,5 +22,30 @@ export async function fetchTravelerById(id: string) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch traveler.');
+  }
+}
+
+export async function fetchPiecesByTravelerId(id: string) {
+  noStore();
+
+  try {
+    const data = await sql<Piece>`
+      SELECT
+        id,
+        userId,
+        pieceId,
+        status,
+        partnerId,
+        answer
+      FROM pieces
+      WHERE userId = ${id}
+      ORDER BY pieceId
+    `;
+
+    const pieces = data.rows;
+    return pieces;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch pieces.');
   }
 }
