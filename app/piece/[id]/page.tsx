@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       {
         piece.type.match('interaction') && (
           <div>
-            Scan another person's QR Code to complete
+            Scan another person&apos;s QR Code to complete
           </div>
         )
       }

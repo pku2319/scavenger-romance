@@ -9,7 +9,7 @@ export default async function MyQRCode() {
   return (
     <div className="flex flex-col items-center p-24">
       <div className="mb-2 block text-base font-medium">
-        {travelerData?.name}'s code
+        {travelerData?.name}&apos;s code
       </div>
       <QRCode value={`http://localhost:3000/partner/${traveler?.value}`} />
     </div>
