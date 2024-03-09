@@ -18,7 +18,6 @@ const FormSchema = z.object({
 const CreateTraveler = FormSchema.omit({ id: true });
 export async function createTraveler(formData: FormData) {
   let result: QueryResult<QueryResultRow>;
-
   const { name, game } = CreateTraveler.parse({
     name: formData.get('name'),
     game: formData.get('game'),
@@ -28,20 +27,23 @@ export async function createTraveler(formData: FormData) {
 
   try {
     result = await sql`
-    INSERT INTO travelers (name, game, board)
+    INSERT INTO travelers (name, game)
     VALUES (${name}, ${game})
     RETURNING id
   `;
   } catch (e) {
+    console.log(e)
+
     return {
       message: 'Database Error: Failed to Create Traveler.',
     };
   }
+  console.log(result)
 
   try {
     pieceIds.map(async (id) => {
       await sql`
-      INSERT INTO pieces (userId, pieceId, status, answer, parnerId)
+      INSERT INTO pieces (userId, pieceId, status, answer, partnerId)
       VALUES (${result.rows[0].id}, ${id}, 0, null, null)
       `;
     })
