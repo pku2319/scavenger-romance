@@ -1,9 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import Flipper from './Flipper'
+import CompletedInfo from './CompletedInfo'
+import { Piece } from '@/app/lib/definitions'
+
 export default function Piece(
-  { status, pieceId, row, col }:
-    { status: number, pieceId: number, row: number, col: number }
+  { status, piece, row, col }:
+    { status: number, piece: Piece, row: number, col: number }
 ) {
   return (
     <div
@@ -16,22 +20,27 @@ export default function Piece(
           <div className="w-[140px] h-[140px] bg-black flex items-center justify-center">
             <Link
               className="text-white underline hover:text-blue-500"
-              href={`/piece/${pieceId}`}>
+              href={`/piece/${piece.pieceid}`}>
               Found
             </Link>
           </div>
         )
       }
       {
-        status === 2 && <Image
-          src={`/row-${row}-column-${col}.jpg`}
-          alt="Puzzle Board picture piece"
-          key={row}
-          className=""
-          width={140}
-          height={140}
-          priority
-        />
+        status === 2 && (
+          <Flipper className="w-[140px] h-[140px] bg-black flex items-center justify-center">
+            <Image
+              src={`/row-${row}-column-${col}.jpg`}
+              alt="Puzzle Board picture piece"
+              key={row}
+              className="front"
+              width={140}
+              height={140}
+              priority
+            />
+            <CompletedInfo piece={piece} />
+          </Flipper>
+        )
       }
     </div>
   )
