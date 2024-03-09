@@ -11,7 +11,7 @@ export default async function MyQRCode() {
       <div className="mb-2 block text-base font-medium">
         {travelerData?.name}&apos;s code
       </div>
-      <QRCode value={`http://localhost:3000/partner/${traveler?.value}`} />
+      <QRCode value={`http://scavenger-romance.vercel.app/partner/${traveler?.value}`} />
     </div>
   )
 }
