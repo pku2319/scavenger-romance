@@ -1,10 +1,7 @@
-import { useFormState } from 'react-dom';
-
 import { createTraveler } from '@/app/lib/actions';
 
 export default function CreateTravelerForm() {
   const initialState = { message: null, errors: {} };
-  // const [state, dispatch] = useFormState(createTraveler, initialState);
 
   return (
     <form

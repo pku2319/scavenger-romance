@@ -9,8 +9,8 @@ export default async function CompletedInfo({ piece }: { piece: Piece }) {
       {
         traveler && (
           <>
-            <div>Partner:</div>
-            <div>{traveler?.name}</div>
+            <div className='text-base'>Partner:</div>
+            <div className='text-base'>{traveler?.name}</div>
           </>
         )
       }
