@@ -52,7 +52,6 @@ describe('Page', () => {
       id: '1',
       name: 'Tester',
       game: 'test',
-      board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
     }
 
     beforeAll(() => {

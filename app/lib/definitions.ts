@@ -8,9 +8,9 @@ export type Piece = {
   id: string; // Will be created on the database
   userid: string;
   pieceid: number;
-  partnerid: string;
+  partnerid: string | null;
   status: number;
-  answer: string;
+  answer: string | null;
 }
 
 export interface Pieces {

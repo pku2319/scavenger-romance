@@ -31,12 +31,11 @@ export default function Piece(
           <Flipper className="w-[140px] h-[140px] bg-black flex items-center justify-center">
             <Image
               src={`/row-${row}-column-${col}.jpg`}
-              alt="Puzzle Board picture piece"
+              alt={`Puzzle Board picture piece ${piece.pieceid}`}
               key={row}
               className="front"
               width={140}
               height={140}
-              priority
             />
             <CompletedInfo piece={piece} />
           </Flipper>
