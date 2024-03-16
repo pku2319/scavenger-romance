@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 
 import * as headers from 'next/headers';
 jest.mock('next/headers')
@@ -25,7 +25,7 @@ describe('Page', () => {
       });
     })
 
-    it('renders a greeting', async () => {
+    it('renders', async () => {
       const PageResolved = await resolvedComponent(Page, {})
       const { getByText } = render(<PageResolved />)
 
@@ -34,15 +34,25 @@ describe('Page', () => {
       expect(greeting).toBeInTheDocument()
     })
 
-    it('shows create traveler', async () => {
+    it('shows create traveler and login form', async () => {
       const PageResolved = await resolvedComponent(Page, {})
       render(<PageResolved />)
 
       const input = screen.getByLabelText('What is your name?')
       const hiddenInput = screen.getByTestId('game')
+      const loginLink = screen.getByText('Log In')
 
       expect(input).toBeInTheDocument()
       expect(hiddenInput).toBeInTheDocument()
+      expect(loginLink).toBeInTheDocument()
+
+      fireEvent.click(loginLink)
+
+      const loginButton = screen.getByText('Login')
+      const createTravelerLink = screen.getByText('Create Traveler')
+
+      expect(loginButton).toBeInTheDocument()
+      expect(createTravelerLink).toBeInTheDocument()
     })
   })
 
@@ -65,7 +75,7 @@ describe('Page', () => {
       const PageResolved = await resolvedComponent(Page, {})
       const { getByText } = render(<PageResolved />)
 
-      const greeting = getByText(`Welcome Back, ${mockTraveler.name}!`)
+      const greeting = getByText(`Welcome ${mockTraveler.name}!`)
 
       expect(greeting).toBeInTheDocument()
     })
