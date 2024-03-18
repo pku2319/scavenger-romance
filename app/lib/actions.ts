@@ -2,8 +2,10 @@
 
 import { z } from 'zod';
 import { QueryResult, QueryResultRow, sql } from '@vercel/postgres';
+import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
+
+import { travelers } from '@/schema';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -15,22 +17,17 @@ const FormSchema = z.object({
   }),
 });
 
-const CreateTraveler = FormSchema.omit({ id: true });
-export async function createTraveler(formData: FormData) {
-  let result: QueryResult<QueryResultRow>;
-  const { name, game } = CreateTraveler.parse({
-    name: formData.get('name'),
-    game: formData.get('game'),
-  });
+const db = drizzle(sql);
 
-  const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+export async function createTraveler(data: { name: string; game: string; email: string }) {
+  let result: QueryResult<QueryResultRow>;
+
+  const { name, game, email } = data
+
+  // const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   try {
-    result = await sql`
-    INSERT INTO travelers (name, game)
-    VALUES (${name}, ${game})
-    RETURNING id
-  `;
+    result = await db.insert(travelers).values({ name, email, game });
   } catch (e) {
     console.log(e)
 
@@ -38,22 +35,21 @@ export async function createTraveler(formData: FormData) {
       message: 'Database Error: Failed to Create Traveler.',
     };
   }
-  console.log(result)
+  // console.log(result)
 
-  try {
-    pieceIds.map(async (id) => {
-      await sql`
-      INSERT INTO pieces (userId, pieceId, status, answer, partnerId)
-      VALUES (${result.rows[0].id}, ${id}, 0, null, null)
-      `;
-    })
-  } catch (e) {
-    return {
-      message: 'Database Error: Failed to Create Piece.',
-    };
-  }
+  // try {
+  //   pieceIds.map(async (id) => {
+  //     await sql`
+  //     INSERT INTO pieces (userId, pieceId, status, answer, partnerId)
+  //     VALUES (${result.rows[0].id}, ${id}, 0, null, null)
+  //     `;
+  //   })
+  // } catch (e) {
+  //   return {
+  //     message: 'Database Error: Failed to Create Piece.',
+  //   };
+  // }
 
-  cookies().set('traveler', result.rows[0].id);
   revalidatePath('/');
 }
 
