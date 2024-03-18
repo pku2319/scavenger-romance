@@ -1,4 +1,4 @@
-import { text, timestamp, pgTable, uuid } from "drizzle-orm/pg-core";
+import { text, timestamp, pgTable, uuid, unique } from "drizzle-orm/pg-core";
 
 export const user = pgTable("travelers", {
   id: uuid("id"),
@@ -7,4 +7,8 @@ export const user = pgTable("travelers", {
   game: text("game"),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
-});
+},
+  (t) => ({
+    unq: unique().on(t.game, t.email),
+  })
+);
