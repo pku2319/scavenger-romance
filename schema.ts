@@ -1,4 +1,4 @@
-import { text, timestamp, pgTable, uuid, unique } from "drizzle-orm/pg-core";
+import { text, timestamp, pgTable, uuid, unique, integer } from "drizzle-orm/pg-core";
 
 export const travelers = pgTable("travelers", {
   id: uuid("id"),
@@ -16,8 +16,8 @@ export const travelers = pgTable("travelers", {
 export const pieces = pgTable("pieces", {
   id: uuid("id"),
   travelerId: uuid("traveler_id"),
-  pieceId: text("piece_id"),
-  status: text("status"),
+  pieceId: integer("piece_id"),
+  status: integer("status"),
   answer: text("answer"),
   partnerId: uuid("partner_id"),
   createdAt: timestamp("created_at"),

@@ -37,16 +37,23 @@ export async function createTraveler(data: { name: string; game: string; email: 
   }
 
   try {
-    pieceIds.map(async (id) => {
+    await db
+      .insert(pieces)
+      .values({ answer: null, status: 0 })
+
+
+    pieceIds.map(async (pieceId) => {
       await db.insert(pieces).values({
-        pieceId: id,
         travelerId: result.rows[0].id,
         status: 0,
+        pieceId,
         answer: null,
         partnerId: null
       })
     })
   } catch (e) {
+    console.log(e)
+
     return {
       message: 'Database Error: Failed to Create Piece.',
     };
