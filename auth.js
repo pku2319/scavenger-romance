@@ -9,7 +9,11 @@ export const {
 } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      await createTraveler({ name: user.name, email: user.email, game: process.env.GAME })
+      await createTraveler({
+        name: user.name,
+        email: user.email,
+        game: process.env.GAME,
+      })
       return true
     },
   },

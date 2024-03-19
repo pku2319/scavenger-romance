@@ -23,11 +23,15 @@ export async function createTraveler(data: { name: string; game: string; email: 
   let result: QueryResult<QueryResultRow>;
 
   const { name, game, email } = data
+  const createdAt = new Date();
+  const updatedAt = new Date();
 
   const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   try {
-    result = await db.insert(travelers).values({ name, email, game });
+    result = await db
+      .insert(travelers)
+      .values({ name, email, game, createdAt, updatedAt });
   } catch (e) {
     console.log(e)
 
