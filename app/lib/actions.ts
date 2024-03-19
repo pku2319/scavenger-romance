@@ -5,7 +5,7 @@ import { QueryResult, QueryResultRow, sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { revalidatePath } from 'next/cache';
 
-import { travelers } from '@/schema';
+import { travelers, pieces } from '@/schema';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -24,7 +24,7 @@ export async function createTraveler(data: { name: string; game: string; email: 
 
   const { name, game, email } = data
 
-  // const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   try {
     result = await db.insert(travelers).values({ name, email, game });
@@ -35,20 +35,22 @@ export async function createTraveler(data: { name: string; game: string; email: 
       message: 'Database Error: Failed to Create Traveler.',
     };
   }
-  // console.log(result)
 
-  // try {
-  //   pieceIds.map(async (id) => {
-  //     await sql`
-  //     INSERT INTO pieces (userId, pieceId, status, answer, partnerId)
-  //     VALUES (${result.rows[0].id}, ${id}, 0, null, null)
-  //     `;
-  //   })
-  // } catch (e) {
-  //   return {
-  //     message: 'Database Error: Failed to Create Piece.',
-  //   };
-  // }
+  try {
+    pieceIds.map(async (id) => {
+      await db.insert(pieces).values({
+        pieceId: id,
+        travelerId: result.rows[0].id,
+        status: 0,
+        answer: null,
+        partnerId: null
+      })
+    })
+  } catch (e) {
+    return {
+      message: 'Database Error: Failed to Create Piece.',
+    };
+  }
 
   revalidatePath('/');
 }
