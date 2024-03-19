@@ -1,7 +1,6 @@
 {
   "name": "scavenger-romance",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +10,7 @@
     "seed": "node -r dotenv/config ./scripts/seed.js",
     "test": "jest",
     "generate": "drizzle-kit generate:pg",
-    "migrate": "node --import tsx --env-file .env.local ./scripts/migrator.ts"
+    "migrate": "node --experimental-modules --import tsx --env-file .env.local ./scripts/migrator.ts"
   },
   "dependencies": {
     "@vercel/postgres": "^0.7.2",
