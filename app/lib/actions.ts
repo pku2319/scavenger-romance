@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { QueryResult, QueryResultRow, sql } from '@vercel/postgres';
+import { sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { revalidatePath } from 'next/cache';
 
@@ -20,7 +20,7 @@ const FormSchema = z.object({
 const db = drizzle(sql);
 
 export async function createTraveler(data: { name: string; game: string; email: string }) {
-  let result: QueryResult<QueryResultRow>;
+  let result: { id: string; name: string; game: string; email: string; createdAt: Date; updatedAt: Date; }[];
 
   const { name, game, email } = data
   const createdAt = new Date();
@@ -31,7 +31,9 @@ export async function createTraveler(data: { name: string; game: string; email: 
   try {
     result = await db
       .insert(travelers)
-      .values({ name, email, game, createdAt, updatedAt });
+      .values({ name, email, game, createdAt, updatedAt })
+      .onConflictDoNothing()
+      .returning();
   } catch (e) {
     console.log(e)
 
@@ -41,18 +43,15 @@ export async function createTraveler(data: { name: string; game: string; email: 
   }
 
   try {
-    await db
-      .insert(pieces)
-      .values({ answer: null, status: 0 })
-
-
     pieceIds.map(async (pieceId) => {
       await db.insert(pieces).values({
-        travelerId: result.rows[0].id,
+        travelerId: result[0].id,
         status: 0,
         pieceId,
         answer: null,
-        partnerId: null
+        partnerId: null,
+        createdAt,
+        updatedAt,
       })
     })
   } catch (e) {

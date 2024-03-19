@@ -14,14 +14,14 @@ export const travelers = pgTable("travelers", {
 );
 
 export const pieces = pgTable("pieces", {
-  id: uuid("id"),
-  travelerId: uuid("traveler_id"),
-  pieceId: integer("piece_id"),
-  status: integer("status"),
+  id: uuid("id").defaultRandom().primaryKey(),
+  travelerId: uuid("traveler_id").notNull(),
+  pieceId: integer("piece_id").notNull(),
+  status: integer("status").notNull(),
   answer: text("answer"),
   partnerId: uuid("partner_id"),
-  createdAt: timestamp("created_at"),
-  updatedAt: timestamp("updated_at"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
 },
   (t) => ({
     unq: unique().on(t.travelerId, t.pieceId),
