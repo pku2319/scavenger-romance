@@ -1,6 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 
+// TODO: This needs to be updated to the ORM way of fetching
 import {
   Traveler,
   Piece,

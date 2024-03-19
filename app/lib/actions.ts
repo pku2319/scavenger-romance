@@ -62,6 +62,7 @@ export async function createTraveler(data: { name: string; game: string; email: 
   revalidatePath('/');
 }
 
+// TODO: This needs to be updated to the ORM way of updating
 export async function updatePiece(
   travelerId: string, pieceId: number, status: number, answer: string | null, partnerId: string | null) {
   await sql`
