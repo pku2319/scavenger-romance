@@ -1,6 +1,11 @@
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
 
+const mockNavigation = jest.fn()
+jest.mock("next/navigation", () => ({
+  useSearchParams: mockNavigation,
+}));
+
 import * as headers from 'next/headers';
 jest.mock('next/headers')
 
@@ -17,15 +22,21 @@ async function resolvedComponent(Component: (arg0: any) => any, props: any) {
 describe('Page', () => {
   const mockMyCookies = headers.cookies as jest.MockedFunction<any>;
   const mockFetchTravelerById = data.fetchTravelerById as jest.MockedFunction<any>;
+  const mockSearchParamsGet = jest.fn();
 
   describe('when there is no traveler', () => {
     beforeAll(() => {
       mockMyCookies.mockReturnValue({
         get: jest.fn().mockReturnValue(null),
       });
+      mockNavigation.mockReturnValue({
+        get: mockSearchParamsGet
+      });
     })
 
     it('renders', async () => {
+      mockSearchParamsGet.mockReturnValueOnce('')
+
       const PageResolved = await resolvedComponent(Page, {})
       const { getByText } = render(<PageResolved />)
 
@@ -34,21 +45,26 @@ describe('Page', () => {
       expect(greeting).toBeInTheDocument()
     })
 
-    it('shows create traveler and login form', async () => {
+    it('shows sign up when form is not login', async () => {
+      mockSearchParamsGet.mockReturnValueOnce('')
+
       const PageResolved = await resolvedComponent(Page, {})
       render(<PageResolved />)
 
-      const input = screen.getByLabelText('What is your name?')
-      const hiddenInput = screen.getByTestId('game')
+      const signupButton = screen.getByText('Sign up (google)')
       const loginLink = screen.getByText('Log In')
 
-      expect(input).toBeInTheDocument()
-      expect(hiddenInput).toBeInTheDocument()
+      expect(signupButton).toBeInTheDocument()
       expect(loginLink).toBeInTheDocument()
+    })
 
-      fireEvent.click(loginLink)
+    it('shows login when the form is login', async () => {
+      mockSearchParamsGet.mockReturnValueOnce('login')
 
-      const loginButton = screen.getByText('Login')
+      const PageResolved = await resolvedComponent(Page, {})
+      render(<PageResolved />)
+
+      const loginButton = screen.getByText("Let's Begin")
       const createTravelerLink = screen.getByText('Create Traveler')
 
       expect(loginButton).toBeInTheDocument()

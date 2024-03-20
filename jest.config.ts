@@ -90,8 +90,10 @@ const config: Config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
+  // Because of issues with next-authv5 https://github.com/renanleonel/next-auth-v5-middleware/blob/main/jest.config.ts
   moduleNameMapper: {
     '^@/app/(.*)$': '<rootDir>/app/$1',
+    'next-auth': '<rootDir>/__tests__/mocks/next-auth.ts',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -157,10 +159,7 @@ const config: Config = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
-  // ],
+  testMatch: ['**/__tests__/**/*.test.ts?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
