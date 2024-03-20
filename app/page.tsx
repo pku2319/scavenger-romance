@@ -22,7 +22,7 @@ export default async function Home() {
               <Link
                 href="/qr-code"
                 className='absolute right-5 top-50% underline hover:text-blue-500'>
-                My QR Code
+                QR Codes
               </Link>
             )
           }
