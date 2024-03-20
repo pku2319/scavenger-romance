@@ -1,0 +1,1 @@
+ALTER TABLE "travelers" ADD CONSTRAINT "travelers_game_email_unique" UNIQUE("game","email");

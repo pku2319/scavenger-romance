@@ -1,9 +1,13 @@
 'use server';
 
 import { z } from 'zod';
-import { QueryResult, QueryResultRow, sql } from '@vercel/postgres';
+import { sql } from '@vercel/postgres';
+import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+
+import { travelers, pieces } from '@/schema';
+import { Traveler } from './definitions';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -15,22 +19,28 @@ const FormSchema = z.object({
   }),
 });
 
-const CreateTraveler = FormSchema.omit({ id: true });
-export async function createTraveler(formData: FormData) {
-  let result: QueryResult<QueryResultRow>;
-  const { name, game } = CreateTraveler.parse({
-    name: formData.get('name'),
-    game: formData.get('game'),
-  });
+const db = drizzle(sql);
 
-  const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function isNew(model: any) {
+  return model.createdAt === model.updatedAt;
+}
+
+export async function createTraveler(data: { name: string; game: string; email: string }) {
+  let result: Traveler[];
+
+  const { name, game, email } = data
+  const createdAt = new Date();
+  const updatedAt = new Date();
 
   try {
-    result = await sql`
-    INSERT INTO travelers (name, game)
-    VALUES (${name}, ${game})
-    RETURNING id
-  `;
+    result = await db
+      .insert(travelers)
+      .values({ name, email, game, createdAt, updatedAt })
+      .onConflictDoUpdate({
+        target: [travelers.email, travelers.game],
+        set: { updatedAt },
+      })
+      .returning();
   } catch (e) {
     console.log(e)
 
@@ -38,25 +48,40 @@ export async function createTraveler(formData: FormData) {
       message: 'Database Error: Failed to Create Traveler.',
     };
   }
-  console.log(result)
+
+  if (isNew(result[0])) {
+    await createPieces(result[0].id, createdAt, updatedAt);
+  }
+
+  cookies().set('traveler', result[0].id);
+  revalidatePath('/');
+}
+
+async function createPieces(travelerId: string, createdAt: Date, updatedAt: Date) {
+  const pieceIds = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   try {
-    pieceIds.map(async (id) => {
-      await sql`
-      INSERT INTO pieces (userId, pieceId, status, answer, partnerId)
-      VALUES (${result.rows[0].id}, ${id}, 0, null, null)
-      `;
+    pieceIds.map(async (pieceId) => {
+      await db.insert(pieces).values({
+        travelerId,
+        status: 0,
+        pieceId,
+        answer: null,
+        partnerId: null,
+        createdAt,
+        updatedAt,
+      })
     })
   } catch (e) {
+    console.log(e)
+
     return {
       message: 'Database Error: Failed to Create Piece.',
     };
   }
-
-  cookies().set('traveler', result.rows[0].id);
-  revalidatePath('/');
 }
 
+// TODO: This needs to be updated to the ORM way of updating
 export async function updatePiece(
   travelerId: string, pieceId: number, status: number, answer: string | null, partnerId: string | null) {
   await sql`

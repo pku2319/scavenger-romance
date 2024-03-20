@@ -1,6 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 
+// TODO: This needs to be updated to the ORM way of fetching
 import {
   Traveler,
   Piece,
@@ -32,14 +33,14 @@ export async function fetchPiecesByTravelerId(id: string) {
     const data = await sql<Piece>`
       SELECT
         id,
-        userId,
-        pieceId,
+        traveler_id,
+        piece_id,
         status,
-        partnerId,
+        partner_id,
         answer
       FROM pieces
-      WHERE userId = ${id}
-      ORDER BY pieceId
+      WHERE traveler_id = ${id}
+      ORDER BY piece_id
     `;
 
     const pieces = data.rows;
@@ -57,13 +58,13 @@ export async function fetchPiece(pieceId: string, travelerId: string) {
     const data = await sql<Piece>`
       SELECT
         id,
-        userId,
-        pieceId,
+        traveler_id,
+        piece_id,
         status,
-        partnerId,
+        partner_id,
         answer
       FROM pieces
-      WHERE userId = ${travelerId} AND pieceId = ${pieceId}
+      WHERE traveler_id = ${travelerId} AND piece_id = ${pieceId}
     `;
 
     const piece = data.rows[0];

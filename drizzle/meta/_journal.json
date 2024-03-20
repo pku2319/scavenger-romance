@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710741231558,
+      "tag": "0000_elite_energizer",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1710741730916,
+      "tag": "0001_busy_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710834975906,
+      "tag": "0002_majestic_screwball",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1710843693451,
+      "tag": "0003_short_trish_tilby",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1710843901533,
+      "tag": "0004_cool_maelstrom",
+      "breakpoints": true
+    }
+  ]
+}
