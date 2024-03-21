@@ -92,6 +92,7 @@ const config: Config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // Because of issues with next-authv5 https://github.com/renanleonel/next-auth-v5-middleware/blob/main/jest.config.ts
   moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
     '^@/app/(.*)$': '<rootDir>/app/$1',
     'next-auth': '<rootDir>/__tests__/mocks/next-auth.ts',
   },
