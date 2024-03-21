@@ -18,10 +18,10 @@ describe('Board', () => {
   it('renders pieces', () => {
     const piece = {
       id: 'piece-id',
-      pieceid: 1,
+      piece_id: 1,
       status: 1,
-      userid: 'some-id',
-      partnerid: null,
+      traveler_id: 'some-id',
+      partner_id: null,
       answer: null,
     }
 
@@ -44,10 +44,10 @@ describe('Board', () => {
     it('show completed info', () => {
       const piece = {
         id: 'piece-id',
-        pieceid: 1,
+        piece_id: 1,
         status: 2,
-        userid: 'some-id',
-        partnerid: null,
+        traveler_id: 'some-id',
+        partner_id: null,
         answer: null,
       }
 

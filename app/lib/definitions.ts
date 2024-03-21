@@ -9,9 +9,9 @@ export type Traveler = {
 
 export type Piece = {
   id: string; // Will be created on the database
-  userid: string;
-  pieceid: number;
-  partnerid: string | null;
+  traveler_id: string;
+  piece_id: number;
+  partner_id: string | null;
   status: number;
   answer: string | null;
 }

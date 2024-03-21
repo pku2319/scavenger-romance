@@ -8,6 +8,7 @@ import { cookies } from 'next/headers';
 
 import { travelers, pieces } from '@/schema';
 import { Traveler } from './definitions';
+import { and, eq } from 'drizzle-orm';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -81,16 +82,14 @@ async function createPieces(travelerId: string, createdAt: Date, updatedAt: Date
   }
 }
 
-// TODO: This needs to be updated to the ORM way of updating
 export async function updatePiece(
   travelerId: string, pieceId: number, status: number, answer: string | null, partnerId: string | null) {
-  await sql`
-    UPDATE pieces
-    SET
-      status = ${status},
-      answer = ${answer},
-      partnerId = ${partnerId}
-    WHERE
-      pieceId = ${pieceId} AND userId = ${travelerId}
-  `;
+  await db.update(pieces)
+    .set({ status, answer, partnerId })
+    .where(and
+      (
+        eq(pieces.pieceId, pieceId),
+        eq(pieces.travelerId, travelerId)
+      )
+    );
 }

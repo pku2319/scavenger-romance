@@ -14,8 +14,8 @@ export default function Board({ pieces }: { pieces: Array<PieceType> }) {
                   status={piece.status}
                   key={piece.id}
                   piece={piece}
-                  row={Math.ceil(piece.pieceid / 3)}
-                  col={(piece.pieceid % 3) || 3} />
+                  row={Math.ceil(piece.piece_id / 3)}
+                  col={(piece.piece_id % 3) || 3} />
               )
             })
           }
