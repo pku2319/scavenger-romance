@@ -1,19 +1,21 @@
 "use client";
 
-import QRCode from "react-qr-code";
-
-import { partnerIdFromCode } from "./decoder";
-import QRCodeScanner from "./QRCodeScanner";
 import { useState } from "react";
+import QRCode from "react-qr-code";
+import { useRouter } from 'next/navigation'
+
+import { decoder } from "./decoder";
+import QRCodeScanner from "./QRCodeScanner";
 
 export default function CodeCameraSwitcher({ myId }: { myId: string }) {
   const [mode, setMode] = useState('camera');
+  const router = useRouter();
 
   const onScan = (data: string) => {
-    const partnerId = partnerIdFromCode(data)
+    const { path, id } = decoder(data)
 
-    if (partnerId) {
-      window.location.href = `/partner/${partnerId}`;
+    if (path && id) {
+      router.push(`/${path}/${id}`);
     }
   }
 
