@@ -22,7 +22,7 @@ export default function CodeCameraSwitcher({ myId }: { myId: string }) {
     return (
       <div className="flex flex-col items-center p-10">
         <button
-          className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20 mb-5"
+          className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20 mb-10"
           onClick={() => setMode('code')}>
           Switch to QR Code
         </button>
@@ -34,11 +34,13 @@ export default function CodeCameraSwitcher({ myId }: { myId: string }) {
   return (
     <div className="flex flex-col items-center p-10">
       <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20 mb-5"
+        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20 mb-10"
         onClick={() => setMode('camera')}>
         Switch to Camera
       </button>
-      <QRCode value={`partner:${myId}`} />
+      <div className="flex flex-col items-center p-5 bg-white">
+        <QRCode value={`partner:${myId}`} />
+      </div>
     </div>
   )
 }
