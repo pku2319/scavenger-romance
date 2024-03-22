@@ -6,9 +6,7 @@ import { fetchTravelerById, fetchPiece } from '@/app/lib/data';
 import { updatePiece } from '@/app/lib/actions';
 import Status from './Status';
 import { STATUS_COMPLETED } from './statuses';
-
-import { Pieces } from "@/app/lib/definitions";
-const pieces: Pieces = (await import("@/app/lib/pieces.json")).default
+import pieces from "@/app/lib/pieces.json"
 
 export default async function Page({ params }: { params: { id: string } }) {
   const traveler = cookies().get('traveler');
@@ -16,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const myPiece = traveler ? await fetchPiece(params.id, traveler.value) : null;
 
   const { id } = params;
-  const piece = pieces[id];
+  const piece = pieces[id as keyof typeof pieces];
 
   const updateGame = async (formData: FormData) => {
     "use server";
