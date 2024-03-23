@@ -5,8 +5,7 @@ import { STATUS_FOUND } from "@/app/piece/[id]/statuses";
 
 import { Pieces } from "@/app/lib/definitions";
 import Link from "next/link";
-import Piece from "@/app/ui/components/Piece";
-const pieces: Pieces = (await import("@/app/lib/pieces.json")).default
+import pieces from "@/app/lib/pieces.json";
 
 export default async function Pieces({ params }: { params: { partnerId: string } }) {
   const traveler = cookies().get('traveler');
@@ -29,19 +28,19 @@ export default async function Pieces({ params }: { params: { partnerId: string }
               return null
             }
 
-            const gamePiece = pieces[piece.pieceid]
+            const gamePiece = pieces[piece.piece_id as unknown as keyof typeof pieces];
 
             if (gamePiece.type.match('choice')) {
               return <PieceLink
                 key={piece.id}
-                pieceId={piece.pieceid}
+                pieceId={piece.piece_id}
                 partnerId={params.partnerId}
                 shortname={gamePiece.prompts[(travelerData?.name?.length || 0) % 2].shortName} />
             }
 
             return <PieceLink
               key={piece.id}
-              pieceId={piece.pieceid}
+              pieceId={piece.piece_id}
               partnerId={params.partnerId}
               shortname={gamePiece.prompts[0].shortName} />
           })

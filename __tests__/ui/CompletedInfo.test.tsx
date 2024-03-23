@@ -26,10 +26,10 @@ describe('when piece is completed', () => {
   it('show completed info', async () => {
     const piece = {
       id: 'piece-id',
-      pieceid: 1,
+      piece_id: 1,
       status: 2,
-      userid: 'some-id',
-      partnerid: 'partner-id',
+      traveler_id: 'some-id',
+      partner_id: 'partner-id',
       answer: 'answer',
     }
 

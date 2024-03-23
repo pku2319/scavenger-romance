@@ -20,7 +20,7 @@ export default function Piece(
           <div className="w-[140px] h-[140px] bg-black flex items-center justify-center">
             <Link
               className="text-white underline hover:text-blue-500"
-              href={`/piece/${piece.pieceid}`}>
+              href={`/piece/${piece.piece_id}`}>
               Found
             </Link>
           </div>
@@ -31,7 +31,7 @@ export default function Piece(
           <Flipper className="w-[140px] h-[140px] bg-black flex items-center justify-center">
             <Image
               src={`/row-${row}-column-${col}.jpg`}
-              alt={`Puzzle Board picture piece ${piece.pieceid}`}
+              alt={`Puzzle Board picture piece ${piece.piece_id}`}
               key={row}
               className="front"
               width={140}

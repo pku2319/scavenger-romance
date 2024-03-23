@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 const mockNavigation = jest.fn()
 jest.mock("next/navigation", () => ({
@@ -12,12 +12,8 @@ jest.mock('next/headers')
 import * as data from '@/app/lib/data'
 jest.mock('@/app/lib/data')
 
+import { resolvedComponent } from './support/helpers'
 import Page from '@/app/page'
-
-async function resolvedComponent(Component: (arg0: any) => any, props: any) {
-  const ComponentResolved = await Component(props)
-  return () => ComponentResolved
-}
 
 describe('Page', () => {
   const mockMyCookies = headers.cookies as jest.MockedFunction<any>;

@@ -45,12 +45,12 @@
       {
         "prompt": "Create a secret handshake with someone",
         "shortName": "handshake",
-        "question": "NONE"
+        "question": "Give the handshake a name"
       },
       {
         "prompt": "Create a silly dance with someone",
         "shortName": "dance",
-        "question": "NONE"
+        "question": "What do you call your dance?"
       }
     ]
   },
@@ -65,7 +65,7 @@
     ]
   },
   "7": {
-    "type": "choice interaction",
+    "type": "choice interaction answer",
     "prompts": [
       {
         "prompt": "Create a drink/food recipe based on someone's personality",
