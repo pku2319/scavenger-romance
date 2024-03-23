@@ -6,7 +6,7 @@ import { fetchTravelerById, fetchPiece } from '@/app/lib/data';
 import { updatePiece } from '@/app/lib/actions';
 import Status from './Status';
 import { STATUS_COMPLETED } from './statuses';
-import pieces from "@/app/lib/pieces.json"
+import pieces from "@/app/lib/pieces.json";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const traveler = cookies().get('traveler');
