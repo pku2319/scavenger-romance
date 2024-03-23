@@ -22,8 +22,9 @@ const FormSchema = z.object({
 
 const db = drizzle(sql);
 
+// Comparing js time objects requires using getTime()
 function isNew(model: any) {
-  return model.createdAt === model.updatedAt;
+  return model.createdAt.getTime() === model.updatedAt.getTime();
 }
 
 export async function createTraveler(data: { name: string; game: string; email: string }) {
