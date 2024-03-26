@@ -7,6 +7,7 @@ import { updatePiece } from '@/app/lib/actions';
 import Status from './Status';
 import { STATUS_COMPLETED } from './statuses';
 import pieces from "@/app/lib/pieces.json";
+import Header from '@/app/ui/components/Header';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const traveler = cookies().get('traveler');
@@ -28,11 +29,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (myPiece?.status === STATUS_COMPLETED) {
     return (
       <div className='flex flex-col items-center'>
-        <header className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-          <div className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-            You already completed this piece!
-          </div>
-        </header>
+        <Header>
+          You already completed this piece!
+        </Header>
       </div>
     )
   }
@@ -40,17 +39,10 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className='flex flex-col items-center'>
-      <header className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <div className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+      <Header>
           { /* To separate a server action */}
           <Status travelerId={traveler?.value || ""} piece={myPiece} />
-          <Link
-            className='absolute right-5 top-50% underline hover:text-blue-500'
-            href='/'>
-            Game Board
-          </Link>
-        </div>
-      </header>
+      </Header>
       <div className="flex flex-col items-center p-24">
         <Prompt type={piece.type} prompts={piece.prompts} travelerName={travelerData?.name || ''} />
       </div>
