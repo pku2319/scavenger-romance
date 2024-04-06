@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { fetchTravelerById, fetchPiece } from '@/app/lib/data';
@@ -8,6 +7,7 @@ import Status from './Status';
 import { STATUS_COMPLETED } from './statuses';
 import pieces from "@/app/lib/pieces.json";
 import Header from '@/app/ui/components/Header';
+import ScanPersonCode from './ScanPersonCode';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const traveler = cookies().get('traveler');
@@ -36,7 +36,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     )
   }
 
-
   return (
     <div className='flex flex-col items-center'>
       <Header>
@@ -48,9 +47,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       {
         piece.type.match('interaction') && (
-          <div>
-            Scan another person&apos;s QR Code to complete
-          </div>
+          <ScanPersonCode pieceId={id} />
         )
       }
       {

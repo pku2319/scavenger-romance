@@ -4,15 +4,15 @@ import { useState } from "react";
 import QRCode from "react-qr-code";
 import { useRouter } from 'next/navigation'
 
-import { decoder } from "./decoder";
-import QRCodeScanner from "./QRCodeScanner";
+import { pieceIdFromCode } from "@/app/lib/decoder";
+import QRCodeScanner from "../ui/components/QRCodeScanner";
 
 export default function CodeCameraSwitcher({ myId }: { myId: string }) {
   const [mode, setMode] = useState('camera');
   const router = useRouter();
 
   const onScan = (data: string) => {
-    const { path, id } = decoder(data)
+    const { path, id } = pieceIdFromCode(data)
 
     if (path && id) {
       router.push(`/${path}/${id}`);
@@ -20,7 +20,7 @@ export default function CodeCameraSwitcher({ myId }: { myId: string }) {
   }
 
   if (mode === 'camera') {
-    // Codes that we accept come in the form of partner:<partnerId>
+    // Codes that we accept come in the form of piece:<pieceId>
     return (
       <div className="flex flex-col items-center p-10">
         <button
