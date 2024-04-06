@@ -1,5 +1,5 @@
-import * as QRCodeScanner from '@/app/qr-code/QRCodeScanner';
-jest.mock('@/app/qr-code/QRCodeScanner')
+import * as QRCodeScanner from '@/app/ui/components/QRCodeScanner';
+jest.mock('@/app/ui/components/QRCodeScanner')
 
 import * as headers from 'next/headers';
 jest.mock('next/headers')

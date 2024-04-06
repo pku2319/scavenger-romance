@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { ReactElement } from "react";
 
 import { resolvedComponent } from './helpers'
@@ -25,7 +25,7 @@ function customRender(
     get: jest.fn().mockReturnValue(options.travelerId || null),
   });
 
-  render(Component)
+  return render(Component)
 }
 
 async function customResolvedRender(
@@ -41,5 +41,6 @@ async function customResolvedRender(
 export {
   customRender as render,
   customResolvedRender as renderResolved,
+  fireEvent,
   screen,
 }
