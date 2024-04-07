@@ -13,9 +13,9 @@
     "type": "individual answer",
     "prompts": [
       {
-        "prompt": "Eat a piece of candy",
-        "shortName": "candy",
-        "question": "What candy did you eat?"
+        "prompt": "Choose a snack and eat it",
+        "shortName": "snack",
+        "question": "What snack did you eat?"
       }
     ]
   },
