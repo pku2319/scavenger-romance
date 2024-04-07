@@ -8,6 +8,8 @@ import { STATUS_COMPLETED } from './statuses';
 import pieces from "@/app/lib/pieces.json";
 import Header from '@/app/ui/components/Header';
 import ScanPersonCode from './ScanPersonCode';
+import { promptPicker } from '@/app/lib/promptPicker';
+import Prompt from './Prompt';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const traveler = cookies().get('traveler');
@@ -16,6 +18,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const { id } = params;
   const piece = pieces[id as keyof typeof pieces];
+  const promptKey = promptPicker(piece.type, travelerData?.name || '')
 
   const updateGame = async (formData: FormData) => {
     "use server";
@@ -43,7 +46,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <Status travelerId={traveler?.value || ""} piece={myPiece} />
       </Header>
       <div className="flex flex-col items-center p-24">
-        <Prompt type={piece.type} prompts={piece.prompts} travelerName={travelerData?.name || ''} />
+        <Prompt prompt={piece.prompts[promptKey].prompt} />
       </div>
       {
         piece.type.match('interaction') && (
@@ -71,21 +74,5 @@ export default async function Page({ params }: { params: { id: string } }) {
         )
       }
     </div>
-  )
-}
-
-function Prompt(
-  { type, prompts, travelerName }:
-    { type: string, prompts: Array<any>, travelerName: string }
-) {
-  let promptKey = 0
-  if (type.match('choice')) {
-    promptKey = travelerName.length % 2
-  }
-
-  return (
-    <p className="mb-2 block text-base font-medium">
-      {prompts[promptKey].prompt}
-    </p>
   )
 }
